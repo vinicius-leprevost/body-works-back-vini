@@ -1,7 +1,9 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import "./utils/load-env";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
 
-import { AppModule } from './app/app.module';
-
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+async function bootstrap() {
+    const app = await NestFactory.create(AppModule, { cors: true });
+    await app.listen(process.env.PORT);
+}
+bootstrap();
